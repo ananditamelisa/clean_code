@@ -29,7 +29,7 @@ public class ReturnOrderServiceImpl implements OrderService<List<ReturnOrderResp
     Integer page = (Integer) args[7];
     List<RmaOutboundResponse> outboundResponses =
         rmaOutboundService.filterFindRmaByMerchantCode(businessPartnerCode, rmaNumber,
-        orderIdOrItemId, returDate, rmaResolution, status, size, page);
+            orderIdOrItemId, returDate, rmaResolution, status, size, page);
     return convertReturnOrder(outboundResponses);
   }
 
@@ -38,7 +38,12 @@ public class ReturnOrderServiceImpl implements OrderService<List<ReturnOrderResp
     for (RmaOutboundResponse returnData : data) {
       ReturnOrderResponse returnItem = new ReturnOrderResponse();
       returnItem.setReturnNo(returnData.getRmaNumber());
+      returnItem.setOrderNo(returnData.getOldOrderInformation().getOldOrderId());
+      returnItem.setOrderItemNo(returnData.getOldOrderInformation().getOldOrderItemId());
       returnItem.setOrderQuantity(returnData.getQuantity());
+      returnItem.setGdnSku(returnData.getOldOrderInformation().getSkuCode());
+      returnItem.setProductName(returnData.getOldOrderInformation().getSkuName());
+      returnItem.setProductSalePrice(returnData.getOldOrderInformation().getProductPrice());
       returnItem.setReason(returnData.getReason());
       if (returnData.getStatus() != null) {
         returnItem.setReturnStatusCode(returnData.getStatus());

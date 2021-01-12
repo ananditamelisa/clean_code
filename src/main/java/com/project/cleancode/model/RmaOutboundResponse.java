@@ -12,19 +12,13 @@ import lombok.NoArgsConstructor;
 public class RmaOutboundResponse {
 
   private int quantity;
-  private int oldQuantity; // input when qc
-  private boolean isExpectProductReturn;
 
   private String reason;
-  private String oldReason; // input when qc
-  private String fractionQuantity; // input when qc
-  private String reasonPO;
-  private String responsibility;
   private String rmaNumber;
   private String rmaRejectReason;
+  private String status;
 
   private String rmaRequestApprovalBy;
-  private String storeId;
+  private OldOrderInformation oldOrderInformation;
   private RmaResolution rmaResolution;
-  private String status;
 }

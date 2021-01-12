@@ -22,8 +22,7 @@ public class OrderComponentUtil {
       .asList("DELIVERED", "WAITING_FOR_PAYMENT",
           "CANCELLED");
 
-  public OrderItemSummaryRequest getFilterRequest(String merchantId,
-      String username, OrderListFilterVO vo) {
+  public OrderItemSummaryRequest getFilterRequest(String merchantId, OrderListFilterVO vo) {
     OrderItemSummaryRequest filterRequest = new OrderItemSummaryRequest();
     filterRequest.setMerchantCode(merchantId);
     filterRequest.setAutoCancelTimestamp(vo.getFilterAutoCancelTimestamp());
@@ -51,58 +50,33 @@ public class OrderComponentUtil {
     result.setOrderItemNo(orderItemSummaryResponse.getOrderItemId());
     result.setQty(orderItemSummaryResponse.getQuantity());
     result.setOrderDate(orderItemSummaryResponse.getOrderDate());
-    result.setOrderStatus(orderItemSummaryResponse.getOrderItemStatus());
 
     Optional<String> orderStatus =
         allowedOrderStatus.stream()
             .filter(status -> orderItemSummaryResponse.getOrderItemStatus().equals(status))
             .findFirst();
     if(orderStatus.isPresent()) {
-      result.setOrderStatusString(orderStatus.get());
+      result.setOrderStatus(orderStatus.get());
     } else {
-      result.setOrderStatusString("-");
+      result.setOrderStatus("-");
     }
 
     result.setProductName(orderItemSummaryResponse.getItemName());
     result.setProductPrice(orderItemSummaryResponse.getPrice());
     result.setDueDate(orderItemSummaryResponse.getAutoCancelTimestamp());
     result.setMerchantDeliveryType(orderItemSummaryResponse.getMerchantDeliveryType());
-    result.setLogisticService(orderItemSummaryResponse.getLogisticsProductName());
-    result.setLogisticProviderCode(orderItemSummaryResponse.getLogisticsProductCode());
-    result.setLogisticsOptionName(orderItemSummaryResponse.getLogisticsOptionName());
-    result.setLogisticsOptionCode(orderItemSummaryResponse.getLogisticsOptionCode());
-    result.setMerchantSku(orderItemSummaryResponse.getMerchantSku());
-    result.setProductTypeCode(orderItemSummaryResponse.getProductTypeCode());
-    result.setProductTypeName(orderItemSummaryResponse.getProductTypeName());
-    result.setLogisticsProductName(orderItemSummaryResponse.getLogisticsProductName());
-    result.setPickupPointCode(orderItemSummaryResponse.getPickupPointCode());
+    result.setPickupPointName(orderItemSummaryResponse.getPickupPointName());
     result.setItemSku(orderItemSummaryResponse.getItemSku());
-
-    if(StringUtils.isBlank(orderItemSummaryResponse.getAwbNumber())) {
-      result.setAwbNumber("-");
-    } else {
-      result.setAwbNumber(orderItemSummaryResponse.getAwbNumber());
-    }
-
-    result.setAwbStatus(
-        StringUtils.isEmpty(orderItemSummaryResponse.getAwbNumber()) ? "-" : orderItemSummaryResponse.getAwbValidityStatus());
     result.setPaid(orderItemSummaryResponse.getIsMerchantPaid());
     result.setCustomerFullName(orderItemSummaryResponse.getCustomerFullName());
-    result.setPickupPointName(orderItemSummaryResponse.getPickupPointName());
-    result.setInstantPickup(orderItemSummaryResponse.isInstantPickup());
-    result.setSettlementCodeExpired(orderItemSummaryResponse.isSettlementCodeExpired());
     result.setAutoCancelWarning(
         isAutoCancelWarning(orderItemSummaryResponse.getOrderItemStatus(),
             orderItemSummaryResponse.getAutoCancelTimestamp()));
-    result.setReadyToProcessDate(orderItemSummaryResponse.getStatusFPUpdatedTimestamp());
-    result.setPackageId(orderItemSummaryResponse.getPackageId());
-    result.setPackageCreated(orderItemSummaryResponse.getPackageCreated());
     result.setFinalPrice(Optional.ofNullable(orderItemSummaryResponse.getPrice())
         .map(BigDecimal::valueOf).orElse(BigDecimal.ZERO)
         .subtract(Optional.ofNullable(orderItemSummaryResponse.getMerchantAdjustment())
             .map(BigDecimal::valueOf).orElse(BigDecimal.ZERO))
         .doubleValue());
-    result.setOrderType(orderItemSummaryResponse.getOrderType());
     return result;
   }
 

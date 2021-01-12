@@ -13,13 +13,10 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReturnOrderResponse{
 
-  private String returnId;
   private String returnNo;
+  private String gdnSku;
   private String orderNo;
   private String orderItemNo;
-  private Date createdDate;
-  private String customerName;
-  private String gdnSku;
   private String productName;
   private Integer orderQuantity;
   private Double productSalePrice;

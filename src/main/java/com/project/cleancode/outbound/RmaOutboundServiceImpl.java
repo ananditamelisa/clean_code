@@ -35,13 +35,13 @@ public class RmaOutboundServiceImpl implements RmaOutboundService {
     if (StringUtils.isNotBlank(status)) {
       additionalParameterMap.put("status", status);
     }
-    if(StringUtils.isNotBlank(rmaNumber)) {
+    if (StringUtils.isNotBlank(rmaNumber)) {
       additionalParameterMap.put("rmaNumber", rmaNumber);
     }
-    if(StringUtils.isNotBlank(orderIdItemId)) {
+    if (StringUtils.isNotBlank(orderIdItemId)) {
       additionalParameterMap.put("orderIdItemId", orderIdItemId);
     }
-    if(StringUtils.isNotBlank(returDate)) {
+    if (StringUtils.isNotBlank(returDate)) {
       additionalParameterMap.put("returDate", returDate);
     }
     additionalParameterMap.put("page", String.valueOf(page));

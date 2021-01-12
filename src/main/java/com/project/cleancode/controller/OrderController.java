@@ -41,8 +41,6 @@ public class OrderController {
         .parse(filterRequest.getFilterStartDate()));
     vo.setFilterEndDate(new SimpleDateFormat("yyyy-MM-dd")
         .parse(filterRequest.getFilterEndDate()));
-    vo.setFilterAutoCancelTimestamp(new SimpleDateFormat("yyyy-MM-dd")
-        .parse(filterRequest.getFilterAutoCancelTimestamp()));
     vo.setLogistic(filterRequest.getLogisticCode());
     // Date range max difference = 30
     OrderUtil.validateFilterDateRange(vo.getFilterStartDate(), vo.getFilterEndDate(), 30);

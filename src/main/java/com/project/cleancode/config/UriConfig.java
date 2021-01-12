@@ -1,4 +1,4 @@
-package com.project.cleancode.model;
+package com.project.cleancode.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

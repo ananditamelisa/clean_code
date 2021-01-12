@@ -21,14 +21,14 @@ public class OrderServiceImpl implements OrderService<List<OrderElementListRespo
   protected OrderOutboundService orderOutboundService;
 
   @Override
-  public List<OrderElementListResponse> filter(Object... args) throws Exception {
+  public List<OrderElementListResponse> filter(Object... args) {
     String username = (String) args[0];
     String merchantId = (String) args[1];
     int page = (int) args[2];
     int size = (int) args[3];
     OrderListFilterVO vo = (OrderListFilterVO) args[4];
     OrderItemSummaryRequest filterRequest =
-        orderComponentUtil.getFilterRequest(merchantId, username, vo);
+        orderComponentUtil.getFilterRequest(username, vo);
     List<OrderItemSummaryResponse> orderItemList = orderOutboundService
         .findOrderItemSummaryByFilter(filterRequest, vo.getOrderBy(), vo.getSortBy(), page, size);
     List<OrderElementListResponse> orderElementList = new ArrayList<>();
