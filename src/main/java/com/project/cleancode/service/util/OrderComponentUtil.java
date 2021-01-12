@@ -33,9 +33,6 @@ public class OrderComponentUtil {
       filterRequest.setOrderItemStatus(allowedOrderStatus);
     }
 
-    if (StringUtils.isNotBlank(vo.getProductTypeCode())) {
-      filterRequest.setProductTypeCode(vo.getProductTypeCode());
-    }
     if (StringUtils.isNotBlank(vo.getPickupPointCode())) {
       filterRequest.setPickupPointCode(vo.getPickupPointCode());
     }

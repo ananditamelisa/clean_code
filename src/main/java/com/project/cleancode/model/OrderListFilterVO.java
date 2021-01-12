@@ -12,9 +12,7 @@ public class OrderListFilterVO {
 
   private String status;
   private String logistic;
-  private List<String> filterOrderTypes;
   private Date orderDate;
-  private String productTypeCode;
   private Date filterAutoCancelTimestamp;
   private String orderBy;
   private String sortBy;

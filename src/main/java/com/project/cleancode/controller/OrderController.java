@@ -7,6 +7,7 @@ import com.project.cleancode.service.OrderService;
 import com.project.cleancode.service.util.OrderUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +22,13 @@ import java.util.List;
 public class OrderController {
 
   @Autowired
+  @Qualifier(value = "orderServiceFilter")
   private OrderService<List<OrderElementListResponse>> orderService;
 
   @RequestMapping(value = {"/orders"},
       method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   public List<OrderElementListResponse> getOrderList(@RequestParam String businessPartnerCode,
-      @RequestParam String username,
       @ModelAttribute OrderFilterRequest filterRequest,
       @RequestParam(required = false, defaultValue = "0") Integer page,
       @RequestParam(required = false, defaultValue = "10") Integer size)
@@ -45,6 +46,6 @@ public class OrderController {
     // Date range max difference = 30
     OrderUtil.validateFilterDateRange(vo.getFilterStartDate(), vo.getFilterEndDate(), 30);
 
-    return orderService.filter(username, businessPartnerCode, page, size, vo);
+    return orderService.filter(businessPartnerCode, page, size, vo);
   }
 }

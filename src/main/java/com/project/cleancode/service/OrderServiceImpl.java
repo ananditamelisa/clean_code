@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value = "orderServiceFilter")
 public class OrderServiceImpl implements OrderService<List<OrderElementListResponse>>{
 
   @Autowired
@@ -22,13 +22,12 @@ public class OrderServiceImpl implements OrderService<List<OrderElementListRespo
 
   @Override
   public List<OrderElementListResponse> filter(Object... args) {
-    String username = (String) args[0];
-    String merchantId = (String) args[1];
-    int page = (int) args[2];
-    int size = (int) args[3];
-    OrderListFilterVO vo = (OrderListFilterVO) args[4];
+    String merchantId = (String) args[0];
+    int page = (int) args[1];
+    int size = (int) args[2];
+    OrderListFilterVO vo = (OrderListFilterVO) args[3];
     OrderItemSummaryRequest filterRequest =
-        orderComponentUtil.getFilterRequest(username, vo);
+        orderComponentUtil.getFilterRequest(merchantId, vo);
     List<OrderItemSummaryResponse> orderItemList = orderOutboundService
         .findOrderItemSummaryByFilter(filterRequest, vo.getOrderBy(), vo.getSortBy(), page, size);
     List<OrderElementListResponse> orderElementList = new ArrayList<>();

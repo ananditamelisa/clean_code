@@ -20,6 +20,7 @@
 		<commons-lang3-version>3.3.2</commons-lang3-version>
 		<httpclient-version>4.5.1</httpclient-version>
 		<javaxvalidation-version>1.1.0.Final</javaxvalidation-version>
+		<hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
 	</properties>
 
 	<dependencies>
@@ -45,6 +46,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>

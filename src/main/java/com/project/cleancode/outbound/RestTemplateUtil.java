@@ -1,6 +1,7 @@
 package com.project.cleancode.outbound;
 
 import com.project.cleancode.config.OrderServiceConfig;
+import com.project.cleancode.config.ReturnOrderServiceConfig;
 import com.project.cleancode.enums.ApiErrorCode;
 import com.project.cleancode.enums.ApiOutboundCode;
 import com.project.cleancode.exception.ApiMetadataException;
@@ -50,13 +51,18 @@ public class RestTemplateUtil {
               (OrderServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
           return this.generateUri(config.getHost(), config.getContext() + path,
              config.getPort(), additionalParams);
+        case RMA:
+          ReturnOrderServiceConfig returnOrderConfig =
+              (ReturnOrderServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
+          return this.generateUri(returnOrderConfig.getHost(),
+              returnOrderConfig.getContext() + path, returnOrderConfig.getPort(), additionalParams);
         default:
           throw new ApiOutboundException(ApiErrorCode.BASE_OUTBOUND_URI_CONFIG_NOT_FOUND,
               ApiErrorCode.BASE_OUTBOUND_URI_CONFIG_NOT_FOUND.getDesc() + ": "
                   + outboundCode.getService().name(), null);
       }
     } catch (Exception e) {
-      throw new ApiMetadataException();
+      throw new ApiOutboundException();
     }
   }
 
