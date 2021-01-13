@@ -1,10 +1,9 @@
 package com.project.cleancode.outbound;
 
 import com.project.cleancode.config.OrderServiceConfig;
-import com.project.cleancode.config.ReturnOrderServiceConfig;
+import com.project.cleancode.config.RmaServiceConfig;
 import com.project.cleancode.enums.ApiErrorCode;
 import com.project.cleancode.enums.ApiOutboundCode;
-import com.project.cleancode.exception.ApiMetadataException;
 import com.project.cleancode.exception.ApiOutboundException;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.BeanFactory;
@@ -47,15 +46,15 @@ public class RestTemplateUtil {
     try {
       switch(outboundCode.getService()){
         case ORDER:
-          OrderServiceConfig config =
+          OrderServiceConfig orderConfig =
               (OrderServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
-          return this.generateUri(config.getHost(), config.getContext() + path,
-             config.getPort(), additionalParams);
+          return this.generateUri(orderConfig.getHost(), orderConfig.getContext() + path,
+             orderConfig.getPort(), additionalParams);
         case RMA:
-          ReturnOrderServiceConfig returnOrderConfig =
-              (ReturnOrderServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
-          return this.generateUri(returnOrderConfig.getHost(),
-              returnOrderConfig.getContext() + path, returnOrderConfig.getPort(), additionalParams);
+          RmaServiceConfig rmaConfig =
+              (RmaServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
+          return this.generateUri(rmaConfig.getHost(),
+              rmaConfig.getContext() + path, rmaConfig.getPort(), additionalParams);
         default:
           throw new ApiOutboundException(ApiErrorCode.BASE_OUTBOUND_URI_CONFIG_NOT_FOUND,
               ApiErrorCode.BASE_OUTBOUND_URI_CONFIG_NOT_FOUND.getDesc() + ": "

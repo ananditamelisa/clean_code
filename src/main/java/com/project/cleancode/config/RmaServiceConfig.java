@@ -2,9 +2,11 @@ package com.project.cleancode.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Data
-public class ReturnOrderServiceConfig {
+@Component
+public class RmaServiceConfig {
 
   @Value("${sysparam.return.order.host}")
   private String host;

@@ -1,13 +1,13 @@
 package com.project.cleancode.enums;
 
 import com.project.cleancode.config.OrderServiceConfig;
-import com.project.cleancode.config.ReturnOrderServiceConfig;
+import com.project.cleancode.config.RmaServiceConfig;
 
 public enum OutboundServiceType {
 
   ORDER("order-service", "orderRestTemplate", OrderServiceConfig.class),
   RMA("return-order-service", "returnOrderRestTemplate",
-      ReturnOrderServiceConfig.class);
+      RmaServiceConfig.class);
 
   private String serviceName;
 
