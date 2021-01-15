@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RmaServiceConfig {
+public class RmaConfig {
 
   @Value("${sysparam.return.order.host}")
   private String host;

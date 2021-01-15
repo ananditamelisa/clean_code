@@ -52,6 +52,7 @@ public class OrderComponentUtil {
         allowedOrderStatus.stream()
             .filter(status -> orderItemSummaryResponse.getOrderItemStatus().equals(status))
             .findFirst();
+
     if(orderStatus.isPresent()) {
       result.setOrderStatus(orderStatus.get());
     } else {

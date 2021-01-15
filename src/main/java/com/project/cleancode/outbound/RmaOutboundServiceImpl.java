@@ -21,15 +21,6 @@ public class RmaOutboundServiceImpl implements OrderOutboundService {
   private RestTemplateUtil restTemplateUtil;
 
   @Override
-  public List<OrderItemSummaryResponse> findOrderItemSummaryByFilter(OrderItemSummaryRequest filterRequest,
-      String orderBy,
-      String sortBy,
-      int page,
-      int size) {
-    return null;
-  }
-
-  @Override
   public List<RmaOutboundResponse> filterFindRmaByMerchantCode(String businessPartnerCode,
       String rmaNumber,
       String orderIdItemId,
@@ -65,5 +56,14 @@ public class RmaOutboundServiceImpl implements OrderOutboundService {
         null, null);
 
     return response.getBody();
+  }
+
+  @Override
+  public List<OrderItemSummaryResponse> findOrderItemSummaryByFilter(OrderItemSummaryRequest filterRequest,
+      String orderBy,
+      String sortBy,
+      int page,
+      int size) {
+    return null;
   }
 }

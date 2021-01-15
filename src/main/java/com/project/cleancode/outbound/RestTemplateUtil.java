@@ -1,7 +1,7 @@
 package com.project.cleancode.outbound;
 
-import com.project.cleancode.config.OrderServiceConfig;
-import com.project.cleancode.config.RmaServiceConfig;
+import com.project.cleancode.config.OrderConfig;
+import com.project.cleancode.config.RmaConfig;
 import com.project.cleancode.enums.ApiErrorCode;
 import com.project.cleancode.enums.ApiOutboundCode;
 import com.project.cleancode.exception.ApiOutboundException;
@@ -46,13 +46,13 @@ public class RestTemplateUtil {
     try {
       switch(outboundCode.getService()){
         case ORDER:
-          OrderServiceConfig orderConfig =
-              (OrderServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
+          OrderConfig orderConfig =
+              (OrderConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
           return this.generateUri(orderConfig.getHost(), orderConfig.getContext() + path,
              orderConfig.getPort(), additionalParams);
         case RMA:
-          RmaServiceConfig rmaConfig =
-              (RmaServiceConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
+          RmaConfig rmaConfig =
+              (RmaConfig) beanFactory.getBean(outboundCode.getService().getUriConfig());
           return this.generateUri(rmaConfig.getHost(),
               rmaConfig.getContext() + path, rmaConfig.getPort(), additionalParams);
         default:
