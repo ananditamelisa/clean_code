@@ -7,13 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,23 +41,13 @@ public class OrderControllerTest {
 
   @Test
   public void getOrderList_HappyFlow_Success() throws Exception {
-    OrderListFilterVO orderListFilterVO = new OrderListFilterVO();
-    orderListFilterVO.setOrderDate(new SimpleDateFormat("yyyy-MM-dd")
-        .parse("2018-10-15 00:00:00"));
-    orderListFilterVO.setFilterStartDate(new SimpleDateFormat("yyyy-MM-dd")
-        .parse("2018-10-12"));
-    orderListFilterVO.setFilterEndDate(new SimpleDateFormat("yyyy-MM-dd")
-        .parse("2018-10-15"));
-    orderListFilterVO.setStatus("dummy-status");
-    OrderElementListResponse orderElementListResponse = OrderElementListResponse.builder()
-        .orderDate(new SimpleDateFormat("yyyy-MM-dd")
-            .parse("2018-10-15"))
-        .orderItemNo("dummy-order-item-id")
-        .itemSku("dummy-item-sku")
-        .build();
-    List<OrderElementListResponse> responses = Collections.singletonList(orderElementListResponse);
-    when(orderService.filter(eq("dummy-bpcode"), eq(0), eq(10), eq(orderListFilterVO)))
-        .thenReturn(responses);
+    OrderListFilterVO orderListFilterVO = createOrderListFilterVO();
+    List<OrderElementListResponse> responses =
+        Collections.singletonList(createOrderListResponse());
+
+    when(orderService.filter(eq("dummy-bpcode"), eq(0), eq(10),
+        eq(orderListFilterVO))).thenReturn(responses);
+
     mockMvc.perform(get("/orders")
         .accept(MediaType.APPLICATION_JSON_VALUE)
         .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +61,29 @@ public class OrderControllerTest {
         .param("size", String.valueOf(10))
         .param("page", String.valueOf(0)))
         .andExpect(status().isOk());
+
     verify(orderService, times(1))
         .filter(eq("dummy-bpcode"), eq(0), eq(10), eq(orderListFilterVO));
+  }
+
+  private OrderElementListResponse createOrderListResponse() throws ParseException {
+    return OrderElementListResponse.builder()
+        .orderDate(new SimpleDateFormat("yyyy-MM-dd")
+            .parse("2018-10-15"))
+        .orderItemNo("dummy-order-item-id")
+        .itemSku("dummy-item-sku")
+        .build();
+  }
+
+  private OrderListFilterVO createOrderListFilterVO() throws ParseException {
+    OrderListFilterVO orderListFilterVO = new OrderListFilterVO();
+    orderListFilterVO.setOrderDate(new SimpleDateFormat("yyyy-MM-dd")
+        .parse("2018-10-15 00:00:00"));
+    orderListFilterVO.setFilterStartDate(new SimpleDateFormat("yyyy-MM-dd")
+        .parse("2018-10-12"));
+    orderListFilterVO.setFilterEndDate(new SimpleDateFormat("yyyy-MM-dd")
+        .parse("2018-10-15"));
+    orderListFilterVO.setStatus("dummy-status");
+    return orderListFilterVO;
   }
 }
