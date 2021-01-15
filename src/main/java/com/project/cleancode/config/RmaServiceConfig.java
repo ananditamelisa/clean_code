@@ -1,10 +1,8 @@
 package com.project.cleancode.config;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component
 public class RmaServiceConfig {
 
@@ -14,4 +12,16 @@ public class RmaServiceConfig {
   private int port;
   @Value("${sysparam.return.order.context}")
   private String context;
+
+  public String getHost() {
+    return host;
+  }
+
+  public int getPort() {
+    return port;
+  }
+
+  public String getContext() {
+    return context;
+  }
 }
