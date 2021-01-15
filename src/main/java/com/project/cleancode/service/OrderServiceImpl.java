@@ -7,6 +7,7 @@ import com.project.cleancode.model.OrderItemSummaryResponse;
 import com.project.cleancode.model.OrderListFilterVO;
 import com.project.cleancode.service.util.OrderComponentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class OrderServiceImpl implements OrderService<List<OrderElementListRespo
   @Autowired
   private OrderComponentUtil orderComponentUtil;
   @Autowired
+  @Qualifier(value =  "orderOutboundService")
   protected OrderOutboundService orderOutboundService;
 
   @Override

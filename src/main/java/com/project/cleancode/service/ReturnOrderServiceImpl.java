@@ -4,8 +4,9 @@ import com.project.cleancode.enums.ReturnResolutionType;
 import com.project.cleancode.enums.ReturnStatus;
 import com.project.cleancode.model.RmaOutboundResponse;
 import com.project.cleancode.model.ReturnOrderResponse;
-import com.project.cleancode.outbound.RmaOutboundService;
+import com.project.cleancode.outbound.OrderOutboundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import java.util.List;
 public class ReturnOrderServiceImpl implements OrderService<List<ReturnOrderResponse>> {
 
   @Autowired
-  private RmaOutboundService rmaOutboundService;
+  @Qualifier(value =  "rmaOutboundService")
+  private OrderOutboundService rmaOutboundService;
 
   @Override
   public List<ReturnOrderResponse> filter(Object... args) throws Exception {

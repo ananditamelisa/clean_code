@@ -1,6 +1,8 @@
 package com.project.cleancode.outbound;
 
 import com.project.cleancode.enums.ApiOutboundCode;
+import com.project.cleancode.model.OrderItemSummaryRequest;
+import com.project.cleancode.model.OrderItemSummaryResponse;
 import com.project.cleancode.model.RmaOutboundResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class RmaOutboundServiceImpl implements RmaOutboundService {
+@Service(value = "rmaOutboundService")
+public class RmaOutboundServiceImpl implements OrderOutboundService {
 
   @Autowired
   private RestTemplateUtil restTemplateUtil;
+
+  @Override
+  public List<OrderItemSummaryResponse> findOrderItemSummaryByFilter(OrderItemSummaryRequest filterRequest,
+      String orderBy,
+      String sortBy,
+      int page,
+      int size) {
+    return null;
+  }
 
   @Override
   public List<RmaOutboundResponse> filterFindRmaByMerchantCode(String businessPartnerCode,

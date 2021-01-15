@@ -3,6 +3,7 @@ package com.project.cleancode.outbound;
 import com.project.cleancode.enums.ApiOutboundCode;
 import com.project.cleancode.model.OrderItemSummaryRequest;
 import com.project.cleancode.model.OrderItemSummaryResponse;
+import com.project.cleancode.model.RmaOutboundResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(value = "orderOutboundService")
 public class OrderOutboundServiceImpl implements OrderOutboundService{
 
   @Autowired
@@ -37,5 +38,17 @@ public class OrderOutboundServiceImpl implements OrderOutboundService{
             filterRequest);
 
     return response.getBody();
+  }
+
+  @Override
+  public List<RmaOutboundResponse> filterFindRmaByMerchantCode(String merchantCode,
+      String rmaNumber,
+      String orderIdItemId,
+      String returDate,
+      String rmaResolution,
+      String status,
+      int size,
+      int page) throws Exception {
+    return null;
   }
 }
