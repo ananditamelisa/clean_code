@@ -1,6 +1,7 @@
 package com.project.cleancode.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OrderItemSummaryRequest {
 
   private List<String> orderItemStatus;
@@ -18,4 +20,5 @@ public class OrderItemSummaryRequest {
   private String merchantCode;
   private boolean instantPickup;
   private Date autoCancelTimestamp;
+  private Date orderCreatedTimestamp;
 }

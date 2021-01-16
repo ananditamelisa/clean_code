@@ -25,6 +25,7 @@ public class OrderComponentUtil {
   public OrderItemSummaryRequest getFilterRequest(String merchantId, OrderListFilterVO vo) {
     OrderItemSummaryRequest filterRequest = new OrderItemSummaryRequest();
     filterRequest.setMerchantCode(merchantId);
+    filterRequest.setOrderCreatedTimestamp(vo.getOrderDate());
     filterRequest.setAutoCancelTimestamp(vo.getFilterAutoCancelTimestamp());
     filterRequest.setInstantPickup(vo.isInstantPickup());
     if (StringUtils.isNotEmpty(vo.getStatus())) {
@@ -36,7 +37,6 @@ public class OrderComponentUtil {
     if (StringUtils.isNotBlank(vo.getPickupPointCode())) {
       filterRequest.setPickupPointCode(vo.getPickupPointCode());
     }
-
     return filterRequest;
   }
 
